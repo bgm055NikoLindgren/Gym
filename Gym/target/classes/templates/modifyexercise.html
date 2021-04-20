@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+    th:href="@{css/bootstrap.min.css}" />
+<title>GYM THING</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Add exercises</h1>
+    <div>
+        <form th:object="${exercise}" th:action="@{/save}" action="#"
+            method="post">
+            <input type="hidden" id="id" th:field="*{id}"> <label
+                for="name">Move</label> <input type="text" th:field="*{move}"
+                id="move" placeholder="Move"> <span
+                th:if="${#fields.hasErrors('move')}" th:errors="*{move}"></span>
+            <label for="reps">Reps</label> <input type="text"
+                th:field="*{reps}" id="reps" placeholder="Reps"> <span
+                th:if="${#fields.hasErrors('reps')}" th:errors="*{reps}"></span> <label
+                for="sets">Sets</label> <input type="text" th:field="*{sets}"
+                id="sets" placeholder="Sets"> <span
+                th:if="${#fields.hasErrors('sets')}" th:errors="*{sets}"></span> <label
+                for="rest">REST TIME</label> <input type="text" th:field="*{rest}"
+                id="rest" placeholder="Rest"> <span
+                th:if="${#fields.hasErrors('rest')}" th:errors="*{rest}"></span> 
+    
+                <label
+                for="deplist">Bodypart</label> <select id="deplist"
+                th:field="*{bodypart}" class="form-control">
+                <option th:each="bodypart: ${bodyparts}" th:value="${bodypart.bodypartid}"
+                    th:text="${bodypart.bodypartName}"></option>
+            </select> <input class="button button-success" type="submit" value="Save">
+            
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+    th:href="@{css/bootstrap.min.css}" />
+
+<title>GYM</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+    <h1>GYM LIST</h1>
+    <div class="col-md-4">
+            <h3 th:inline="text">
+                Welcome, [[${#httpServletRequest.remoteUser}]]
+            </h3>
+        </div>
+        <div class="col-md-4">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+            </form>
+        </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Move</th>
+                <th>Reps</th>
+                <th>Sets</th>
+                <th>Rest time</th>
+                <th>Bodypart</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="exercise : ${exercises}">
+                <td th:text="${exercise.move}"></td>
+                <td th:text="${exercise.reps}"></td>
+                <td th:text="${exercise.sets}"></td>
+                <td th:text="${exercise.rest}"></td>
+                <td th:text="${exercise.bodypart.bodypartName}"></td>         
+                
+                 <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${exercise.id})}" class="btn btn-danger">Delete</a></td>
+                <td><a class="btn btn-primary"
+                    th:href="@{/edit/{id}(id=${exercise.id})}">Edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-success" href="/add">Add Exercise</a>
+</body>
+</html>
